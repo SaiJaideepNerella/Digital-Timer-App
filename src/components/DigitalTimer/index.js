@@ -1,4 +1,31 @@
+import {Component} from 'react'
 
+import './index.css'
+
+const initialState = {
+  isTimerRunning: false,
+  timeElapsedInSeconds: 0,
+  timerLimitInMinutes: 25,
+}
+
+class DigitalTimer extends Component {
+  state = initialState
+
+  componentWillUnmount() {
+    this.clearTimerInterval()
+  }
+
+  clearTimerInterval = () => clearInterval(this.intervalId)
+
+  onDecreaseTimerLimitInMinutes = () => {
+    const {timerLimitInMinutes} = this.state
+
+    if (timerLimitInMinutes > 1) {
+      this.setState(prevState => ({
+        timerLimitInMinutes: prevState.timerLimitInMinutes - 1,
+      }))
+    }
+  }
 
   onIncreaseTimerLimitInMinutes = () =>
     this.setState(prevState => ({
